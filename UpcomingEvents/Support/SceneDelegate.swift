@@ -11,30 +11,39 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    
+    private var eventDataProvider: EventDataProvider!
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+
+        configureEventDataProvider()
+
+        window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+        window?.windowScene = windowScene
+        window?.rootViewController = createUpcomingEventsNC()
+        window?.makeKeyAndVisible()
         
-        // Here we force-unwrap the URL of the 'mock.json' file since we know the file exists in the app Bundle.
+        configureNavigationBar()
+    }
+    
+    func createUpcomingEventsNC() -> UINavigationController {
+        let favoritesList = UpcomingEventsVC(eventDataProvider: eventDataProvider)
+        favoritesList.title = "Favorites"
+        favoritesList.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
+        return UINavigationController(rootViewController: favoritesList)
+    }
+    
+    func configureNavigationBar() {
+        UINavigationBar.appearance().tintColor = .systemGreen
+    }
+    
+    func configureEventDataProvider() {
         let mockFileURL = Bundle.main.url(forResource: "mock", withExtension: "json")!
-        let fp = FileEventDataProvider(at: mockFileURL)
-        let distinct = fp?.getDistinctEventDates()
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM d, yyyy"
-        let dateTitles = distinct?.map { date in
-            EventUtilities.abbreviatedDayTitle(of: date)
-        }
-        
-        print(dateTitles)
-        
-        if let date = distinct?.first {
-            print(fp?.getEvents(on: date))
-        }
+        eventDataProvider = EventDataProvider(fileEventURL: mockFileURL)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -65,6 +74,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
-
 }
-

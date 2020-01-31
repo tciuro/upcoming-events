@@ -14,6 +14,7 @@ class FileEventDataProvider {
     private let url: URL
     private let dateFormatter = DateFormatter()
     
+    /// Obtain a list of unique dates. It specifies the year, month and day.
     private lazy var distinctDates: [Date] = {
         let calendar = Calendar.current
         let startDates: [Date] = events.map { event in
@@ -21,7 +22,7 @@ class FileEventDataProvider {
             let date = calendar.date(from: dateComponents)
             return date ?? nil
         }.compactMap { $0 }
-        return Array(Set<Date>(startDates)).sorted()
+        return Array(Set<Date>(startDates))
     }()
     
     init?(at url: URL) {
@@ -46,8 +47,21 @@ extension FileEventDataProvider: EventProviding {
             return range.contains(date)
         }
     }
+    
+    func getEventsGroupedByDay() -> [Day] {
+        let distictDates = getDistinctEventDates().sorted()
+        
+        let days = distictDates.map { date -> Day? in
+            let events = getEvents(on: date)
+            return events.isEmpty ? nil : Day(date: date, events: events)
+        }.compactMap { $0 }
+        
+        return days
+    }
 
 }
+
+// MARK: - Private Section -
 
 private extension FileEventDataProvider {
     
@@ -55,12 +69,17 @@ private extension FileEventDataProvider {
         guard  let fileContents = try? Data(contentsOf: url),
             let json = try? JSONSerialization.jsonObject(with: fileContents, options: []) as? [[String: String]] else { return false }
         
+        // Date has the following format: November 10, 2018 6:00 PM
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "MMMM d, yyyy h:mm a"
+
         events = json.map { eventInfo in
-            return EventUtilities.convertedEvent(from: eventInfo)
-        }.compactMap { $0 }
+            return EventUtilities.convertedEvent(from: eventInfo, dateFormatter: dateFormatter)
+        }
+        .compactMap { $0 }
         
         return true
     }
     
-
 }

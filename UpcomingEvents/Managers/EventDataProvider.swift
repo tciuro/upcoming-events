@@ -28,4 +28,8 @@ extension EventDataProvider: EventProviding {
         return fileEventDataProvider.getEvents(on: date)
     }
     
+    func getEventsGroupedByDay() -> [Day] {
+        return fileEventDataProvider.getEventsGroupedByDay()
+    }
+    
 }

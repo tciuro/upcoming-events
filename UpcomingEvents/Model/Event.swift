@@ -8,8 +8,18 @@
 
 import Foundation
 
-struct Event: Codable {
+struct Event: Codable, Hashable {
     let title: String
     let start: Date
     let end: Date
+}
+
+extension Event: CustomStringConvertible {
+    var description: String {
+        return """
+        \nEvent: \(self.title)
+        Start: \(self.start.localDate)
+        End: \(self.end.localDate)
+        """
+    }
 }

@@ -10,6 +10,7 @@ import Foundation
 
 struct EventUtilities {
     
+    /// Main date formatter.
     static var dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale.current
@@ -17,27 +18,37 @@ struct EventUtilities {
         return dateFormatter
     }()
     
-    static func abbreviatedDayTitle(of date: Date) -> String {
-        dateFormatter.dateFormat = "MMMM d, yyyy"
-        return dateFormatter.string(from: date)
+    /// Whether the device is configured to display the time in 24-hour format. On the simulator, this method always returns false.
+    static func isDateFormatIn24Hours() -> Bool {
+        let locale = Locale.current
+        if let dateFormat = DateFormatter.dateFormat(fromTemplate: "j", options: 0, locale: locale)  {
+            if dateFormat.contains("H") || dateFormat.contains("k") {
+                return true
+            }
+        }
+        return false
     }
     
-    static func convertedEvent(from jsonEvent: [String: String]) -> Event? {
+    /// Given a JSON object, attempt to instantiate an Event.
+    /// - Parameters:
+    ///   - jsonEvent: the JSON object to be converted.
+    ///   - dateFormatter: the date formatter used to transform the date string into a Date.
+    static func convertedEvent(from jsonEvent: [String: String], dateFormatter: DateFormatter) -> Event? {
         if let title = jsonEvent["title"],
-            let start = dateFromJSONEventDateString(jsonEvent["start"]),
-            let end = dateFromJSONEventDateString(jsonEvent["end"]) {
+            let start = dateFromJSONEventDateString(jsonEvent["start"], dateFormatter: dateFormatter),
+            let end = dateFromJSONEventDateString(jsonEvent["end"], dateFormatter: dateFormatter) {
             return Event(title: title, start: start, end: end)
         }
         return nil
     }
     
-    static func dateFromJSONEventDateString(_ dateString: String?) -> Date? {
-        guard let dateString = dateString else { return nil }
-        
-        // Date has the following format: November 10, 2018 6:00 PM
-        dateFormatter.dateFormat = "MMMM d, yyyy h:mm a"
-        
-        return dateFormatter.date(from: dateString)!
+    /// Transform a date string into a Date.
+    /// - Parameters:
+    ///   - dateString: the date string to be transformed.
+    ///   - dateFormatter: the date formatter used to transform the date string.
+    static func dateFromJSONEventDateString(_ dateString: String?, dateFormatter: DateFormatter) -> Date? {
+        guard let dateString = dateString, let date = dateFormatter.date(from: dateString) else { return nil }
+        return date
     }
     
 }
