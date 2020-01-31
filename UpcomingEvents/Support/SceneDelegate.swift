@@ -18,6 +18,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        
+        // Here we force-unwrap the URL of the 'mock.json' file since we know the file exists in the app Bundle.
+        let mockFileURL = Bundle.main.url(forResource: "mock", withExtension: "json")!
+        let fp = FileEventDataProvider(at: mockFileURL)
+        let distinct = fp?.getDistinctEventDates()
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM d, yyyy"
+        let dateTitles = distinct?.map { date in
+            EventUtilities.abbreviatedDayTitle(of: date)
+        }
+        
+        print(dateTitles)
+        
+        if let date = distinct?.first {
+            print(fp?.getEvents(on: date))
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
