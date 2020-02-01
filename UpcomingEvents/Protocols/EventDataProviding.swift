@@ -1,5 +1,5 @@
 //
-//  EventProviding.swift
+//  EventDataProviding.swift
 //  UpcomingEvents
 //
 //  Created by Tito Ciuro on 1/30/20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol EventProviding {
+protocol EventDataProviding {
     
     /// Get all unique dates without the time components (e.g. November 10, 2018).
     func getDistinctEventDates() -> [Date]

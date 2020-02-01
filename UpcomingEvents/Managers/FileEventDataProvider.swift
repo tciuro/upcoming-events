@@ -55,7 +55,7 @@ class FileEventDataProvider {
 
 }
 
-extension FileEventDataProvider: EventProviding {
+extension FileEventDataProvider: EventDataProviding {
     
     func getDistinctEventDates() -> [Date] {
         return distinctDates

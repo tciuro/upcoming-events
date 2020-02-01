@@ -21,7 +21,7 @@ final class EventDataProvider {
     
 }
 
-extension EventDataProvider: EventProviding {
+extension EventDataProvider: EventDataProviding {
     
     func getDistinctEventDates() -> [Date] {
         return fileEventDataProvider.getDistinctEventDates()
