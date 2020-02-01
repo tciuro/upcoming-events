@@ -25,9 +25,32 @@ class FileEventDataProvider {
         return Array(Set<Date>(startDates))
     }()
     
-    init?(at url: URL) {
+    init(at url: URL) {
         self.url = url
-        if !loadEvents() { return nil }
+    }
+
+    func loadEvents(completion: @escaping EmptyCompletion) {
+        DispatchQueue.global(qos: .default).async {
+            guard let fileContents = try? Data(contentsOf: self.url),
+                let json = try? JSONSerialization.jsonObject(with: fileContents,options: []) as? [[String: String]] else { return completion() }
+            
+            // Date has the following format: November 10, 2018 6:00 PM
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+            dateFormatter.dateFormat = "MMMM d, yyyy h:mm a"
+            
+            self.events = json.map { eventInfo in
+                return EventUtilities.convertedEvent(from: eventInfo, dateFormatter: dateFormatter)
+            }
+            .compactMap { $0 }
+            
+            // We wait half second to show the activity indicator.
+            // Needed? Not at all. I just want to make sure we see the indicator on faster phones ;-)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+                completion()
+            }
+        }
     }
 
 }
@@ -59,27 +82,4 @@ extension FileEventDataProvider: EventProviding {
         return days
     }
 
-}
-
-// MARK: - Private Section -
-
-private extension FileEventDataProvider {
-    
-    func loadEvents() -> Bool {
-        guard  let fileContents = try? Data(contentsOf: url),
-            let json = try? JSONSerialization.jsonObject(with: fileContents, options: []) as? [[String: String]] else { return false }
-        
-        // Date has the following format: November 10, 2018 6:00 PM
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.dateFormat = "MMMM d, yyyy h:mm a"
-
-        events = json.map { eventInfo in
-            return EventUtilities.convertedEvent(from: eventInfo, dateFormatter: dateFormatter)
-        }
-        .compactMap { $0 }
-        
-        return true
-    }
-    
 }

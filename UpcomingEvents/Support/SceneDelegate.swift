@@ -22,17 +22,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         configureEventDataProvider()
 
-        window = UIWindow(frame: windowScene.coordinateSpace.bounds)
-        window?.windowScene = windowScene
-        window?.rootViewController = createUpcomingEventsNC()
-        window?.makeKeyAndVisible()
+        self.window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+        self.window?.windowScene = windowScene
+        self.window?.rootViewController = self.createUpcomingEventsNC(eventDataProvider: self.eventDataProvider)
         
-        configureNavigationBar()
+        self.window?.makeKeyAndVisible()
+        
+        self.configureNavigationBar()
     }
     
-    func createUpcomingEventsNC() -> UINavigationController {
+    func configureEventDataProvider() {
+        let mockFileURL = Bundle.main.url(forResource: "mock", withExtension: "json")!
+        let fileEventDataProvider = FileEventDataProvider(at: mockFileURL)
+        self.eventDataProvider = EventDataProvider(eventDataProvider: fileEventDataProvider)
+    }
+    
+    func createUpcomingEventsNC(eventDataProvider: EventDataProvider) -> UINavigationController {
         let upcomingEventsVC = UpcomingEventsVC(eventDataProvider: eventDataProvider)
-        upcomingEventsVC.title = "Favorites"
         return UINavigationController(rootViewController: upcomingEventsVC)
     }
     
@@ -40,11 +46,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         UINavigationBar.appearance().tintColor = .systemGreen
     }
     
-    func configureEventDataProvider() {
-        let mockFileURL = Bundle.main.url(forResource: "mock", withExtension: "json")!
-        eventDataProvider = EventDataProvider(fileEventURL: mockFileURL)
-    }
-
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.

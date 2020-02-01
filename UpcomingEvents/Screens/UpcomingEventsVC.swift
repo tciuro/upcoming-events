@@ -11,8 +11,8 @@ import UIKit
 class UpcomingEventsVC: UIViewController {
     
     private var tableView: UITableView!
-    private var eventDays: [Day]
-    private var eventDataProvider: EventDataProvider
+    private var eventDays = [Day]()
+    private var eventDataProvider: EventDataProvider!
     
     var onDismiss: EmptyCompletion?
 
@@ -20,10 +20,10 @@ class UpcomingEventsVC: UIViewController {
         super.viewDidLoad()
         configureViewController()
         configureTableView()
+        configureDataSource()
     }
 
     init(eventDataProvider: EventDataProvider) {
-        self.eventDays = eventDataProvider.getEventsGroupedByDay()
         self.eventDataProvider = eventDataProvider
         super.init(nibName: nil, bundle: nil)
     }
@@ -36,8 +36,6 @@ class UpcomingEventsVC: UIViewController {
         view.backgroundColor = .systemBackground
         self.title = "Upcoming Events"
         navigationController?.navigationBar.prefersLargeTitles = true
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissVC))
-        navigationItem.rightBarButtonItem = doneButton
     }
     
     private func configureTableView() {
@@ -50,6 +48,33 @@ class UpcomingEventsVC: UIViewController {
         tableView.register(EventCell.self, forCellReuseIdentifier: EventCell.reuseID)
 
         view.addSubview(tableView)
+    }
+    
+    private func configureDataSource() {
+        // Hide the table view
+        self.tableView.alpha = 0.0;
+
+        // Show the activity indicator
+        let loadingView = showLoadingView()
+        
+        // Load the events from the file
+        eventDataProvider.fileEventDataProvider.loadEvents { [weak self] in
+            guard let self = self else { return }
+            
+            // We can safely remove the loading view
+            self.hideLoadingView(loadingView)
+            
+            // Build the event groups
+            self.eventDays = self.eventDataProvider.getEventsGroupedByDay()
+            
+            // Reload the table view
+            self.tableView.reloadData()
+
+            // Gently display it
+            UIView.animate(withDuration: 0.5) {
+                self.tableView.alpha = 1.0
+            }
+        }
     }
     
     private func deselectTableView() {
@@ -79,6 +104,13 @@ extension UpcomingEventsVC: UITableViewDelegate {
         let navController = UINavigationController(rootViewController: destinationVC)
         present(navController, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        let day = eventDays[indexPath.section]
+        let event = day.events[indexPath.row]
+        guard event.getConflicts() != nil else { return false }
+        return true
+    }
 
 }
 
@@ -103,7 +135,7 @@ extension UpcomingEventsVC: UITableViewDataSource {
             let day = eventDays[indexPath.section]
             let event = day.events[indexPath.row]
             let isConflict = day.isEventInConflict(event)
-            eventCell.set(event: event, isConflict: isConflict)
+            eventCell.set(event: event, isConflict: isConflict, showDisclosureIfConflict: true)
         }
         
         return cell

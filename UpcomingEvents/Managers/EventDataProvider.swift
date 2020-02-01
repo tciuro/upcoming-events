@@ -10,10 +10,13 @@ import Foundation
 
 final class EventDataProvider {
     
-    private var fileEventDataProvider: FileEventDataProvider!
-    
-    init(fileEventURL url: URL) {
-        self.fileEventDataProvider = FileEventDataProvider(at: url)
+    private var _fileEventDataProvider: FileEventDataProvider
+    var fileEventDataProvider: FileEventDataProvider {
+        get { return _fileEventDataProvider }
+    }
+
+    init(eventDataProvider: FileEventDataProvider) {
+        self._fileEventDataProvider = eventDataProvider
     }
     
 }
