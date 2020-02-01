@@ -12,8 +12,8 @@ class UpcomingEventsVC: UIViewController {
     
     private var tableView: UITableView!
     private var eventDays = [Day]()
-    private var eventDataProvider: EventDataProvider!
-    
+    private var presenter: UpcomingEventsPresenter!
+
     var onDismiss: EmptyCompletion?
 
     override func viewDidLoad() {
@@ -24,8 +24,8 @@ class UpcomingEventsVC: UIViewController {
     }
 
     init(eventDataProvider: EventDataProvider) {
-        self.eventDataProvider = eventDataProvider
         super.init(nibName: nil, bundle: nil)
+        presenter = UpcomingEventsPresenter(ui: self, eventDataProvider: eventDataProvider)
     }
     
     required init?(coder: NSCoder) {
@@ -58,14 +58,14 @@ class UpcomingEventsVC: UIViewController {
         let loadingView = showLoadingView()
         
         // Load the events from the file
-        eventDataProvider.fileEventDataProvider.loadEvents { [weak self] in
+        presenter.loadEvents { [weak self] in
             guard let self = self else { return }
             
             // We can safely remove the loading view
             self.hideLoadingView(loadingView)
             
             // Build the event groups
-            self.eventDays = self.eventDataProvider.getEventsGroupedByDay()
+            self.presenter.getEventsGroupedByDay()
             
             // Reload the table view
             self.tableView.reloadData()
@@ -141,4 +141,12 @@ extension UpcomingEventsVC: UITableViewDataSource {
         return cell
     }
 
+}
+
+extension UpcomingEventsVC: UpcomingEventsUIHandling {
+    
+    func setEventDays(_ days: [Day]) {
+        self.eventDays = days
+    }
+    
 }

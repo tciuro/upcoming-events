@@ -22,6 +22,8 @@
 		592B253923E52FA800F35F7C /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592B253823E52FA800F35F7C /* UIViewController+Extension.swift */; };
 		5971509C23E4D4850014F640 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5971509B23E4D4850014F640 /* Constants.swift */; };
 		5999A09D23E4EF18009B48AA /* EventConflictVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5999A09C23E4EF18009B48AA /* EventConflictVC.swift */; };
+		59CC3E2623E6009200614996 /* UpcomingEventsUIHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CC3E2523E6009200614996 /* UpcomingEventsUIHandling.swift */; };
+		59CC3E2823E600C200614996 /* UpcomingEventsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CC3E2723E600C200614996 /* UpcomingEventsPresenter.swift */; };
 		59DB6A1923E3F0B900D97C69 /* EventUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DB6A1823E3F0B900D97C69 /* EventUtilities.swift */; };
 		59DB6A1B23E4997700D97C69 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DB6A1A23E4997700D97C69 /* Day.swift */; };
 		59DB6A1D23E49E3500D97C69 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DB6A1C23E49E3500D97C69 /* EventCell.swift */; };
@@ -60,6 +62,8 @@
 		592B253823E52FA800F35F7C /* UIViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		5971509B23E4D4850014F640 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5999A09C23E4EF18009B48AA /* EventConflictVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventConflictVC.swift; sourceTree = "<group>"; };
+		59CC3E2523E6009200614996 /* UpcomingEventsUIHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingEventsUIHandling.swift; sourceTree = "<group>"; };
+		59CC3E2723E600C200614996 /* UpcomingEventsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingEventsPresenter.swift; sourceTree = "<group>"; };
 		59DB6A1823E3F0B900D97C69 /* EventUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventUtilities.swift; sourceTree = "<group>"; };
 		59DB6A1A23E4997700D97C69 /* Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
 		59DB6A1C23E49E3500D97C69 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
@@ -146,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				5912FE5A23E3D7EA00CE8A95 /* EventProviding.swift */,
+				59CC3E2523E6009200614996 /* UpcomingEventsUIHandling.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -199,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				5912FE3023E3C0DC00CE8A95 /* UpcomingEventsVC.swift */,
+				59CC3E2723E600C200614996 /* UpcomingEventsPresenter.swift */,
 				5999A09C23E4EF18009B48AA /* EventConflictVC.swift */,
 			);
 			path = Screens;
@@ -338,6 +344,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59CC3E2823E600C200614996 /* UpcomingEventsPresenter.swift in Sources */,
 				59DB6A2723E4A74D00D97C69 /* TitleLabel.swift in Sources */,
 				5912FE5923E3C35C00CE8A95 /* Event.swift in Sources */,
 				5912FE3123E3C0DC00CE8A95 /* UpcomingEventsVC.swift in Sources */,
@@ -349,6 +356,7 @@
 				5912FE6323E3E83600CE8A95 /* Date+Extension.swift in Sources */,
 				59DB6A1B23E4997700D97C69 /* Day.swift in Sources */,
 				59DB6A1D23E49E3500D97C69 /* EventCell.swift in Sources */,
+				59CC3E2623E6009200614996 /* UpcomingEventsUIHandling.swift in Sources */,
 				5912FE2F23E3C0DC00CE8A95 /* SceneDelegate.swift in Sources */,
 				59DB6A2623E4A74D00D97C69 /* SecondaryTitleLabel.swift in Sources */,
 				5912FE5F23E3D8EF00CE8A95 /* FileEventDataProvider.swift in Sources */,
