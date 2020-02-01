@@ -24,6 +24,8 @@
 		5999A09D23E4EF18009B48AA /* EventConflictVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5999A09C23E4EF18009B48AA /* EventConflictVC.swift */; };
 		59CC3E2623E6009200614996 /* UpcomingEventsUIHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CC3E2523E6009200614996 /* UpcomingEventsUIHandling.swift */; };
 		59CC3E2823E600C200614996 /* UpcomingEventsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CC3E2723E600C200614996 /* UpcomingEventsPresenter.swift */; };
+		59CC3E3523E62C4F00614996 /* EventConflictUIHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CC3E3323E62C4F00614996 /* EventConflictUIHandling.swift */; };
+		59CC3E3623E62C4F00614996 /* EventConflictPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CC3E3423E62C4F00614996 /* EventConflictPresenter.swift */; };
 		59DB6A1923E3F0B900D97C69 /* EventUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DB6A1823E3F0B900D97C69 /* EventUtilities.swift */; };
 		59DB6A1B23E4997700D97C69 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DB6A1A23E4997700D97C69 /* Day.swift */; };
 		59DB6A1D23E49E3500D97C69 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DB6A1C23E49E3500D97C69 /* EventCell.swift */; };
@@ -64,6 +66,8 @@
 		5999A09C23E4EF18009B48AA /* EventConflictVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventConflictVC.swift; sourceTree = "<group>"; };
 		59CC3E2523E6009200614996 /* UpcomingEventsUIHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingEventsUIHandling.swift; sourceTree = "<group>"; };
 		59CC3E2723E600C200614996 /* UpcomingEventsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingEventsPresenter.swift; sourceTree = "<group>"; };
+		59CC3E3323E62C4F00614996 /* EventConflictUIHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventConflictUIHandling.swift; sourceTree = "<group>"; };
+		59CC3E3423E62C4F00614996 /* EventConflictPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventConflictPresenter.swift; sourceTree = "<group>"; };
 		59DB6A1823E3F0B900D97C69 /* EventUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventUtilities.swift; sourceTree = "<group>"; };
 		59DB6A1A23E4997700D97C69 /* Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
 		59DB6A1C23E49E3500D97C69 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
@@ -203,7 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				59CC3E3123E62BB900614996 /* UpcomingEventsMVP */,
-				5999A09C23E4EF18009B48AA /* EventConflictVC.swift */,
+				59CC3E3223E62C1400614996 /* EventConflictMVP */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -220,10 +224,20 @@
 			isa = PBXGroup;
 			children = (
 				59CC3E2523E6009200614996 /* UpcomingEventsUIHandling.swift */,
-				5912FE3023E3C0DC00CE8A95 /* UpcomingEventsVC.swift */,
 				59CC3E2723E600C200614996 /* UpcomingEventsPresenter.swift */,
+				5912FE3023E3C0DC00CE8A95 /* UpcomingEventsVC.swift */,
 			);
 			path = UpcomingEventsMVP;
+			sourceTree = "<group>";
+		};
+		59CC3E3223E62C1400614996 /* EventConflictMVP */ = {
+			isa = PBXGroup;
+			children = (
+				59CC3E3323E62C4F00614996 /* EventConflictUIHandling.swift */,
+				59CC3E3423E62C4F00614996 /* EventConflictPresenter.swift */,
+				5999A09C23E4EF18009B48AA /* EventConflictVC.swift */,
+			);
+			path = EventConflictMVP;
 			sourceTree = "<group>";
 		};
 		59DB6A1E23E4A36400D97C69 /* Cells */ = {
@@ -360,9 +374,11 @@
 				592B253923E52FA800F35F7C /* UIViewController+Extension.swift in Sources */,
 				59DB6A1923E3F0B900D97C69 /* EventUtilities.swift in Sources */,
 				5971509C23E4D4850014F640 /* Constants.swift in Sources */,
+				59CC3E3623E62C4F00614996 /* EventConflictPresenter.swift in Sources */,
 				5912FE2D23E3C0DC00CE8A95 /* AppDelegate.swift in Sources */,
 				5912FE6323E3E83600CE8A95 /* Date+Extension.swift in Sources */,
 				59DB6A1B23E4997700D97C69 /* Day.swift in Sources */,
+				59CC3E3523E62C4F00614996 /* EventConflictUIHandling.swift in Sources */,
 				59DB6A1D23E49E3500D97C69 /* EventCell.swift in Sources */,
 				59CC3E2623E6009200614996 /* UpcomingEventsUIHandling.swift in Sources */,
 				5912FE2F23E3C0DC00CE8A95 /* SceneDelegate.swift in Sources */,

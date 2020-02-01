@@ -16,14 +16,15 @@ class EventConflictVC: UIViewController {
     private var tableView: UITableView!
 
     private var event: Event!
-    private var conflicts: [Event]!
-    
+    private var conflicts = [Event]()
+    private var presenter: EventConflictPresenter!
+
     var onDismiss: EmptyCompletion?
     
     init(event: Event) {
-        self.event = event
-        self.conflicts = event.getConflicts()
         super.init(nibName: nil, bundle: nil)
+        self.event = event
+        self.presenter = EventConflictPresenter(ui: self, event: event)
     }
     
     required init?(coder: NSCoder) {
@@ -34,6 +35,7 @@ class EventConflictVC: UIViewController {
         configureViewController()
         configureHeader()
         configureTableView()
+        presenter.getConflicts()
         super.viewDidLoad()
     }
     
@@ -133,6 +135,15 @@ extension EventConflictVC: UITableViewDataSource {
         }
         
         return cell
+    }
+    
+}
+
+extension EventConflictVC: EventConflictUIHandling {
+    
+    func setConflicts(_ conflicts: [Event]) {
+        self.conflicts = conflicts
+        tableView.reloadData()
     }
     
 }
