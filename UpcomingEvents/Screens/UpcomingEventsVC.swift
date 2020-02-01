@@ -12,6 +12,9 @@ class UpcomingEventsVC: UIViewController {
     
     private var tableView: UITableView!
     private var eventDays: [Day]
+    private var eventDataProvider: EventDataProvider
+    
+    var onDismiss: EmptyCompletion?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +24,7 @@ class UpcomingEventsVC: UIViewController {
 
     init(eventDataProvider: EventDataProvider) {
         self.eventDays = eventDataProvider.getEventsGroupedByDay()
+        self.eventDataProvider = eventDataProvider
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -32,6 +36,8 @@ class UpcomingEventsVC: UIViewController {
         view.backgroundColor = .systemBackground
         self.title = "Upcoming Events"
         navigationController?.navigationBar.prefersLargeTitles = true
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissVC))
+        navigationItem.rightBarButtonItem = doneButton
     }
     
     private func configureTableView() {
@@ -46,10 +52,34 @@ class UpcomingEventsVC: UIViewController {
         view.addSubview(tableView)
     }
     
+    private func deselectTableView() {
+        if let selectedIndexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: selectedIndexPath, animated: true)
+        }
+    }
+
+    @objc private func dismissVC() {
+        dismiss(animated: true)
+        if let onDismiss = onDismiss {
+            onDismiss()
+        }
+    }
+    
 }
 
 extension UpcomingEventsVC: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let day = eventDays[indexPath.section]
+        let event = day.events[indexPath.row]
+        let destinationVC = EventConflictVC(event: event)
+        destinationVC.onDismiss = {
+            self.deselectTableView()
+        }
+        let navController = UINavigationController(rootViewController: destinationVC)
+        present(navController, animated: true)
+    }
+
 }
 
 extension UpcomingEventsVC: UITableViewDataSource {

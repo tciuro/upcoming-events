@@ -31,10 +31,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func createUpcomingEventsNC() -> UINavigationController {
-        let favoritesList = UpcomingEventsVC(eventDataProvider: eventDataProvider)
-        favoritesList.title = "Favorites"
-        favoritesList.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
-        return UINavigationController(rootViewController: favoritesList)
+        let upcomingEventsVC = UpcomingEventsVC(eventDataProvider: eventDataProvider)
+        upcomingEventsVC.title = "Favorites"
+        return UINavigationController(rootViewController: upcomingEventsVC)
     }
     
     func configureNavigationBar() {

@@ -8,10 +8,42 @@
 
 import Foundation
 
-struct Event: Codable, Hashable {
+class Event: Codable, Hashable {
+    
     let title: String
     let start: Date
     let end: Date
+    
+    private var eventConflicts: [Event]?
+    
+    init(title: String, start: Date, end: Date) {
+        self.title = title
+        self.start = start
+        self.end = end
+    }
+    
+    static func == (lhs: Event, rhs: Event) -> Bool {
+        return lhs.title == rhs.title
+            && lhs.start == rhs.start
+            && lhs.end == rhs.end
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        title.hash(into: &hasher)
+        start.hash(into: &hasher)
+        end.hash(into: &hasher)
+    }
+    
+    func addConflict(event: Event) {
+        if eventConflicts == nil {
+            eventConflicts = []
+        }
+        eventConflicts?.append(event)
+    }
+    
+    func getConflicts() -> [Event]? {
+        return eventConflicts
+    }
 }
 
 extension Event: CustomStringConvertible {

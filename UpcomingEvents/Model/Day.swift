@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Day {
+class Day {
     
     let date: Date
     let events: [Event]
@@ -27,7 +27,7 @@ struct Day {
     }
     
     /// Checks whether the day contains conflicting events. Time complexity is O(nlogn) + O(n) -> O(nlogn) because the list has been previously sorted.
-    mutating func checkForConflicts() -> Set<Event> {
+    func checkForConflicts() -> Set<Event> {
         guard events.count > 1, let firstEvent = events.first else { return [] }
         
         var conflicts = Set<Event>()
@@ -40,7 +40,9 @@ struct Day {
             if lastMaxEndTimeEvent.end > event.start {
                 // Conflict detected!
                 conflicts.insert(lastMaxEndTimeEvent)
+                lastMaxEndTimeEvent.addConflict(event: event)
                 conflicts.insert(event)
+                event.addConflict(event: lastMaxEndTimeEvent)
                 lastMaxEndTimeEvent = lastMaxEndTimeEvent.end > event.end ? lastMaxEndTimeEvent : event
             } else {
                 // No conflict, move on...

@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias EmptyCompletion = ()->Void
+
 private enum SFSymbols {
     static let warningImage = "exclamationmark.triangle.fill"
     static let calendar = "calendar.circle"
