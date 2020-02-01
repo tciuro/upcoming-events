@@ -150,7 +150,6 @@
 			isa = PBXGroup;
 			children = (
 				5912FE5A23E3D7EA00CE8A95 /* EventProviding.swift */,
-				59CC3E2523E6009200614996 /* UpcomingEventsUIHandling.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -203,8 +202,7 @@
 		5912FE5523E3C20C00CE8A95 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				5912FE3023E3C0DC00CE8A95 /* UpcomingEventsVC.swift */,
-				59CC3E2723E600C200614996 /* UpcomingEventsPresenter.swift */,
+				59CC3E3123E62BB900614996 /* UpcomingEventsMVP */,
 				5999A09C23E4EF18009B48AA /* EventConflictVC.swift */,
 			);
 			path = Screens;
@@ -216,6 +214,16 @@
 				5971509B23E4D4850014F640 /* Constants.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		59CC3E3123E62BB900614996 /* UpcomingEventsMVP */ = {
+			isa = PBXGroup;
+			children = (
+				59CC3E2523E6009200614996 /* UpcomingEventsUIHandling.swift */,
+				5912FE3023E3C0DC00CE8A95 /* UpcomingEventsVC.swift */,
+				59CC3E2723E600C200614996 /* UpcomingEventsPresenter.swift */,
+			);
+			path = UpcomingEventsMVP;
 			sourceTree = "<group>";
 		};
 		59DB6A1E23E4A36400D97C69 /* Cells */ = {
