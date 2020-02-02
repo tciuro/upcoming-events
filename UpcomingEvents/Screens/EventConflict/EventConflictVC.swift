@@ -14,6 +14,7 @@ class EventConflictVC: UIViewController {
     private let titleLabel = TitleLabel(textAlignment: .left, fontSize: 18.0)
     private let timeRangeLabel = SecondaryTitleLabel(fontSize: 15.0)
     private var tableView: UITableView!
+    private var localeChangeObserver: NSObjectProtocol!
 
     private var event: Event!
     private var conflicts: [Event]
@@ -49,6 +50,14 @@ class EventConflictVC: UIViewController {
         self.title = "Event Info"
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissVC))
         navigationItem.rightBarButtonItem = doneButton
+        
+        // Listen for locale changes
+        let center = NotificationCenter.default
+        let mainQueue = OperationQueue.main
+        self.localeChangeObserver = center.addObserver(forName: NSLocale.currentLocaleDidChangeNotification, object: nil, queue: mainQueue) { _ in
+            self.refreshTimeRangeLabel()
+            self.tableView.reloadData()
+        }
     }
     
     private func configureHeader() {
@@ -58,8 +67,8 @@ class EventConflictVC: UIViewController {
 
         warningImageView.shouldDisplayWarning(true)
         titleLabel.text = event.title
-        timeRangeLabel.text = "\(event.start.abbreviatedTimeTitle) - \(event.end.abbreviatedTimeTitle)"
-
+        refreshTimeRangeLabel()
+        
         let padding: CGFloat = 12.0
         let imageSize: CGFloat = 60.0
         
@@ -99,6 +108,10 @@ class EventConflictVC: UIViewController {
             tableView.rightAnchor.constraint(equalTo:view.rightAnchor),
             tableView.bottomAnchor.constraint(equalTo:view.bottomAnchor)
         ])
+    }
+    
+    private func refreshTimeRangeLabel() {
+        timeRangeLabel.text = "\(event.start.abbreviatedTimeTitle) - \(event.end.abbreviatedTimeTitle)"
     }
 
 }
