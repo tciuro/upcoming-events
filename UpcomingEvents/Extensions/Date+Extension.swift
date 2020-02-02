@@ -23,7 +23,6 @@ extension Date {
         return Calendar.autoupdatingCurrent.date(byAdding: components, to: startOfDay)!
     }
     
-    
     /// Returns the current date and time according to the current timezone.
     var localDate: String {
         let dateFormatter = EventUtilities.dateFormatter

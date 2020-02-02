@@ -11,6 +11,8 @@ import SafariServices
 
 extension UIViewController {
     
+    
+    /// Displays a loading view with an animated activity indicator.
     func showLoadingView() -> UIView {
         let containerView = UIView(frame: view.bounds)
         view.addSubview(containerView)
@@ -37,6 +39,8 @@ extension UIViewController {
         return containerView
     }
     
+    /// Hides the loading view.
+    /// - Parameter view: the loading view to be hidden.
     func hideLoadingView(_ view: UIView) {
         DispatchQueue.main.async {
             view.removeFromSuperview()

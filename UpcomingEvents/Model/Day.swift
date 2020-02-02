@@ -24,6 +24,9 @@ class Day {
         })
     }
     
+    
+    /// Returns whether the event is in conlict with another one.
+    /// - Parameter event: the event to be tested.
     func isEventInConflict(_ event: Event) -> Bool {
         return eventConflicts.contains(event)
     }

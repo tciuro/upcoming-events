@@ -65,7 +65,7 @@ class EventConflictVC: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(timeRangeLabel)
 
-        warningImageView.shouldDisplayWarning(true)
+        warningImageView.setImage(type: .warning)
         titleLabel.text = event.title
         refreshTimeRangeLabel()
         

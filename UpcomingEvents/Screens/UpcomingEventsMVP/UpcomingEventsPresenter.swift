@@ -10,21 +10,24 @@ import UIKit
 
 class UpcomingEventsPresenter  {
     
-    private weak var ui: UpcomingEventsUIHandling?
+    private weak var delegate: UpcomingEventsUIHandling?
     private var eventDataService: EventDataService
 
-    init(ui: UpcomingEventsUIHandling, eventDataService: EventDataService) {
-        self.ui = ui
+    init(delegate: UpcomingEventsUIHandling, eventDataService: EventDataService) {
+        self.delegate = delegate
         self.eventDataService = eventDataService
     }
     
+    /// Loads the events asynchronously. The completion handler is dispatched on the main queue.
+    /// - Parameter completion: the completion handler invoked upon completion.
     func loadEvents(completion: @escaping EmptyCompletion) {
         eventDataService.fileEventDataService.loadEvents(completion: completion)
     }
     
+    /// Returns a list of unique days, each containing one or more events. The list is sorted chronologically.
     func getEventsGroupedByDay() {
         let days = eventDataService.fileEventDataService.getEventsGroupedByDay()
-        ui?.setEventDays(days)
+        delegate?.setEventDays(days)
     }
     
 }

@@ -34,6 +34,9 @@ class Event: Codable, Hashable {
         end.hash(into: &hasher)
     }
     
+    
+    /// Adds an event to the conflicts list.
+    /// - Parameter event: the event that conflicts with the current one.
     func addConflict(event: Event) {
         if eventConflicts == nil {
             eventConflicts = []
@@ -41,6 +44,8 @@ class Event: Codable, Hashable {
         eventConflicts?.append(event)
     }
     
+    
+    /// Retrieve the list of conflicts.
     func getConflicts() -> [Event]? {
         return eventConflicts
     }

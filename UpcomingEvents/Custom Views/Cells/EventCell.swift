@@ -27,8 +27,14 @@ class EventCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /// Sets and configures the table view cell representing an event.
+    /// - Parameters:
+    ///   - event: the event to be displayed.
+    ///   - isConflict: whether the event is in conflict.
+    ///   - showDisclosureIfConflict: whether the disclosure indicator should be shown for this cell.
     func set(event: Event, isConflict: Bool, showDisclosureIfConflict: Bool) {
-        eventImageView.shouldDisplayWarning(isConflict)
+        let imageType: EventImageType = isConflict ? .warning : .calendar
+        eventImageView.setImage(type: imageType)
         titleLabel.text = event.title
         timeRangeLabel.text = "\(event.start.abbreviatedTimeTitle) - \(event.end.abbreviatedTimeTitle)"
         accessoryType = isConflict && showDisclosureIfConflict ? .disclosureIndicator : .none

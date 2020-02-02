@@ -26,7 +26,7 @@ class UpcomingEventsVC: UIViewController {
 
     init(eventDataService: EventDataService) {
         super.init(nibName: nil, bundle: nil)
-        self.presenter = UpcomingEventsPresenter(ui: self, eventDataService: eventDataService)
+        self.presenter = UpcomingEventsPresenter(delegate: self, eventDataService: eventDataService)
     }
     
     required init?(coder: NSCoder) {

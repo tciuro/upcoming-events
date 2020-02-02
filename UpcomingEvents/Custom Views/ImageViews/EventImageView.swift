@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum EventImageType {
+    case warning
+    case calendar
+}
+
 class EventImageView: UIImageView {
     
     override init(frame: CGRect) {
@@ -19,11 +24,15 @@ class EventImageView: UIImageView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func shouldDisplayWarning(_ shouldDisplayWarning: Bool) {
-        if shouldDisplayWarning {
+    
+    /// Set the type of image.
+    /// - Parameter type: EventImageType: .warning, .calendar
+    func setImage(type: EventImageType) {
+        switch type {
+        case .warning:
             image = Images.warningImage
             tintColor = .systemYellow
-        } else {
+        case .calendar:
             image = Images.calendarImage
             tintColor = .systemPink
         }
