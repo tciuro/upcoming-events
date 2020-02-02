@@ -18,9 +18,9 @@ class UpcomingEventsTests: XCTestCase {
         mockFileURL = Bundle.main.url(forResource: "mock", withExtension: "json")!
         
         dateFormatter = DateFormatter()
-        dateFormatter.calendar = Calendar.current
-        dateFormatter.locale = Locale.current
-        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.calendar = Calendar.autoupdatingCurrent
+        dateFormatter.locale = Locale.autoupdatingCurrent
+        dateFormatter.timeZone = TimeZone.autoupdatingCurrent
     }
 
     func test_load_all_events() {

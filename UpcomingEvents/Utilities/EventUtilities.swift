@@ -13,14 +13,14 @@ struct EventUtilities {
     /// Main date formatter.
     static var dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale.current
-        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.locale = Locale.autoupdatingCurrent
+        dateFormatter.timeZone = TimeZone.autoupdatingCurrent
         return dateFormatter
     }()
     
     /// Whether the device is configured to display the time in 24-hour format. On the simulator, this method always returns false.
     static func isDateFormatIn24Hours() -> Bool {
-        let locale = Locale.current
+        let locale = Locale.autoupdatingCurrent
         if let dateFormat = DateFormatter.dateFormat(fromTemplate: "j", options: 0, locale: locale)  {
             if dateFormat.contains("H") || dateFormat.contains("k") {
                 return true

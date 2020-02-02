@@ -12,7 +12,7 @@ extension Date {
     
     /// Returns the start of the current day
     var startOfDay: Date {
-        return Calendar.current.startOfDay(for: self)
+        return Calendar.autoupdatingCurrent.startOfDay(for: self)
     }
     
     /// Returns the end of the current day.
@@ -20,7 +20,7 @@ extension Date {
         var components = DateComponents()
         components.day = 1
         components.second = -1
-        return Calendar.current.date(byAdding: components, to: startOfDay)!
+        return Calendar.autoupdatingCurrent.date(byAdding: components, to: startOfDay)!
     }
     
     

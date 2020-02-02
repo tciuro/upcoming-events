@@ -13,7 +13,8 @@ class UpcomingEventsVC: UIViewController {
     private var tableView: UITableView!
     private var eventDays = [Day]()
     private var presenter: UpcomingEventsPresenter!
-
+    private var localeChangeObserver: NSObjectProtocol!
+    
     var onDismiss: EmptyCompletion?
 
     override func viewDidLoad() {
@@ -36,6 +37,14 @@ class UpcomingEventsVC: UIViewController {
         view.backgroundColor = .systemBackground
         self.title = "Upcoming Events"
         navigationController?.navigationBar.prefersLargeTitles = true
+        
+        // Listen for locale changes
+        let center = NotificationCenter.default
+        let mainQueue = OperationQueue.main
+        self.localeChangeObserver = center.addObserver(forName: NSLocale.currentLocaleDidChangeNotification, object: nil, queue: mainQueue) { _ in
+            self.tableView.reloadData()
+        }
+
     }
     
     private func configureTableView() {
