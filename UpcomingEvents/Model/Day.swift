@@ -12,21 +12,20 @@ class Day {
     
     let date: Date
     let events: [Event]
-    private var _eventConflicts: Set<Event>!
-    var eventConflicts: Set<Event> {
-        get { return _eventConflicts }
-    }
+    
+    lazy var eventConflicts: Set<Event> = {
+        return checkForConflicts(events: events)
+    }()
     
     init(date: Date, events: [Event]) {
         self.date = date
         self.events = events.sorted(by: { ev1, ev2 -> Bool in
             ev1.start < ev2.start
         })
-        self._eventConflicts = checkForConflicts(events: self.events)
     }
     
     func isEventInConflict(_ event: Event) -> Bool {
-        return _eventConflicts.contains(event)
+        return eventConflicts.contains(event)
     }
     
     /// Checks whether the day contains conflicting events. Time complexity is O(nlogn) + O(n) -> O(nlogn) because the list has been sorted before the traversal.
