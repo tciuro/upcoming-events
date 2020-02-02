@@ -67,7 +67,7 @@ class Day {
         return conflicts
     }
     
-    func filterLeavingConflicts(event: Event) {
+    func filterConflictsRemoving(event: Event) {
         var conflicts = checkForConflicts(events: _events)
         conflicts.remove(event)
         _events = Array(conflicts).sorted(by: { ev1, ev2 -> Bool in

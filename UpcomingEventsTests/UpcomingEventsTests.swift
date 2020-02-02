@@ -135,6 +135,32 @@ class UpcomingEventsTests: XCTestCase {
         XCTAssertEqual(day.eventConflicts.count, 3)
     }
     
+    func test_day_not_filtered() {
+        let ev1 = Event(title: "Day 1",
+                        start: _date(year: 2020, month: 5, day: 23, hour: 15, minute: 0, second: 0)!,
+                        end: _date(year: 2020, month: 5, day: 23, hour: 18, minute: 30, second: 0)!)
+        let day = Day(date: _date(year: 2020, month: 5, day: 23)!, events: [ev1])
+        
+        XCTAssertFalse(day.isFiltered)
+    }
+    
+    func test_day_is_filtered() {
+        let ev1 = Event(title: "Day 1",
+                        start: _date(year: 2020, month: 5, day: 23, hour: 15, minute: 0, second: 0)!,
+                        end: _date(year: 2020, month: 5, day: 23, hour: 18, minute: 30, second: 0)!)
+        let ev2 = Event(title: "Day 1",
+                        start: _date(year: 2020, month: 5, day: 23, hour: 12, minute: 0, second: 0)!,
+                        end: _date(year: 2020, month: 5, day: 23, hour: 18, minute: 0, second: 0)!)
+        let ev3 = Event(title: "Day 1",
+                        start: _date(year: 2020, month: 5, day: 23, hour: 8, minute: 0, second: 0)!,
+                        end: _date(year: 2020, month: 5, day: 23, hour: 13, minute: 0, second: 0)!)
+        let day = Day(date: _date(year: 2020, month: 5, day: 23)!, events: [ev1, ev2, ev3])
+
+        day.filterConflictsRemoving(event: ev3)
+        XCTAssertEqual(day.eventConflicts.count, 2)
+        XCTAssertTrue(day.isFiltered)
+    }
+    
     // MARK: - Private Section -
     
     func _date(year: Int, month: Int, day: Int, hour: Int = 0, minute: Int = 0, second: Int = 0) -> Date? {

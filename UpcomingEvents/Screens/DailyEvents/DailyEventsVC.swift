@@ -33,7 +33,7 @@ class DailyEventsVC: UIViewController {
     
     init(day: Day, selectedEvent: Event) {
         let filteredDay = day.copy() as! Day
-        filteredDay.filterLeavingConflicts(event: selectedEvent)
+        filteredDay.filterConflictsRemoving(event: selectedEvent)
         self.eventDays = [filteredDay]
         super.init(nibName: nil, bundle: nil)
     }
