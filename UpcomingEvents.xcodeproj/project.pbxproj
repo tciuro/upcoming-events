@@ -114,7 +114,7 @@
 				5971509A23E4D4780014F640 /* Constants */,
 				5912FE4F23E3C1AF00CE8A95 /* Protocols */,
 				5912FE5023E3C1CF00CE8A95 /* Utilities */,
-				5912FE5123E3C1DE00CE8A95 /* Managers */,
+				5912FE5123E3C1DE00CE8A95 /* Services */,
 				5912FE5223E3C1F100CE8A95 /* Model */,
 				5912FE5323E3C1FA00CE8A95 /* Extensions */,
 				5912FE5423E3C1FF00CE8A95 /* Custom Views */,
@@ -162,13 +162,13 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
-		5912FE5123E3C1DE00CE8A95 /* Managers */ = {
+		5912FE5123E3C1DE00CE8A95 /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				5912FE5C23E3D88C00CE8A95 /* EventDataService.swift */,
 				5912FE5E23E3D8EF00CE8A95 /* FileEventDataService.swift */,
 			);
-			path = Managers;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		5912FE5223E3C1F100CE8A95 /* Model */ = {
