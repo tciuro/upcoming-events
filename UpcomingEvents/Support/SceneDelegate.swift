@@ -12,7 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     
-    private var eventDataProvider: EventDataProvider!
+    private var eventDataProvider: EventDataService!
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -33,11 +33,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func configureEventDataProvider() {
         let mockFileURL = Bundle.main.url(forResource: "mock", withExtension: "json")!
-        let fileEventDataProvider = FileEventDataProvider(at: mockFileURL)
-        self.eventDataProvider = EventDataProvider(eventDataProvider: fileEventDataProvider)
+        let fileEventDataProvider = FileEventDataService(at: mockFileURL)
+        self.eventDataProvider = EventDataService(eventDataProvider: fileEventDataProvider)
     }
     
-    func createUpcomingEventsNC(eventDataProvider: EventDataProvider) -> UINavigationController {
+    func createUpcomingEventsNC(eventDataProvider: EventDataService) -> UINavigationController {
         let upcomingEventsVC = UpcomingEventsVC(eventDataProvider: eventDataProvider)
         return UINavigationController(rootViewController: upcomingEventsVC)
     }

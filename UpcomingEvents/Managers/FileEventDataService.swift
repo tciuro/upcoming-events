@@ -1,5 +1,5 @@
 //
-//  FileEventDataProvider.swift
+//  FileEventDataService.swift
 //  UpcomingEvents
 //
 //  Created by Tito Ciuro on 1/30/20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class FileEventDataProvider {
+class FileEventDataService {
     
     private var events: [Event]!
     private let url: URL
@@ -55,7 +55,7 @@ class FileEventDataProvider {
 
 }
 
-extension FileEventDataProvider: EventDataProviding {
+extension FileEventDataService: EventDataProviding {
     
     func getDistinctEventDates() -> [Date] {
         return distinctDates

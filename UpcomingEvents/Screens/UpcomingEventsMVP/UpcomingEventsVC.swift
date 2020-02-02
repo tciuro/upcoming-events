@@ -23,7 +23,7 @@ class UpcomingEventsVC: UIViewController {
         configureDataSource()
     }
 
-    init(eventDataProvider: EventDataProvider) {
+    init(eventDataProvider: EventDataService) {
         super.init(nibName: nil, bundle: nil)
         self.presenter = UpcomingEventsPresenter(ui: self, eventDataProvider: eventDataProvider)
     }

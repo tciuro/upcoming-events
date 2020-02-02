@@ -11,9 +11,9 @@ import UIKit
 class UpcomingEventsPresenter  {
     
     private weak var ui: UpcomingEventsUIHandling?
-    private var eventDataProvider: EventDataProvider
+    private var eventDataProvider: EventDataService
 
-    init(ui: UpcomingEventsUIHandling, eventDataProvider: EventDataProvider) {
+    init(ui: UpcomingEventsUIHandling, eventDataProvider: EventDataService) {
         self.ui = ui
         self.eventDataProvider = eventDataProvider
     }
