@@ -11,19 +11,19 @@ import UIKit
 class UpcomingEventsPresenter  {
     
     private weak var ui: UpcomingEventsUIHandling?
-    private var eventDataProvider: EventDataService
+    private var eventDataService: EventDataService
 
-    init(ui: UpcomingEventsUIHandling, eventDataProvider: EventDataService) {
+    init(ui: UpcomingEventsUIHandling, eventDataService: EventDataService) {
         self.ui = ui
-        self.eventDataProvider = eventDataProvider
+        self.eventDataService = eventDataService
     }
     
     func loadEvents(completion: @escaping EmptyCompletion) {
-        eventDataProvider.fileEventDataProvider.loadEvents(completion: completion)
+        eventDataService.fileEventDataService.loadEvents(completion: completion)
     }
     
     func getEventsGroupedByDay() {
-        let days = eventDataProvider.fileEventDataProvider.getEventsGroupedByDay()
+        let days = eventDataService.fileEventDataService.getEventsGroupedByDay()
         ui?.setEventDays(days)
     }
     

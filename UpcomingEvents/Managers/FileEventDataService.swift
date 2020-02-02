@@ -22,7 +22,7 @@ class FileEventDataService {
             let date = calendar.date(from: dateComponents)
             return date ?? nil
         }.compactMap { $0 }
-        return Array(Set<Date>(startDates))
+        return Array(Set<Date>(startDates)).sorted()
     }()
     
     init(at url: URL) {
@@ -55,7 +55,7 @@ class FileEventDataService {
 
 }
 
-extension FileEventDataService: EventDataProviding {
+extension FileEventDataService: EventDataServicing {
     
     func getDistinctEventDates() -> [Date] {
         return distinctDates
@@ -72,7 +72,7 @@ extension FileEventDataService: EventDataProviding {
     }
     
     func getEventsGroupedByDay() -> [Day] {
-        let distictDates = getDistinctEventDates().sorted()
+        let distictDates = getDistinctEventDates()
         
         let days = distictDates.map { date -> Day? in
             let events = getEvents(on: date)

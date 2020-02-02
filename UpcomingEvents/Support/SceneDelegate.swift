@@ -12,7 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     
-    private var eventDataProvider: EventDataService!
+    private var eventDataService: EventDataService!
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -20,25 +20,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
-        configureEventDataProvider()
+        configureEventDataService()
 
         self.window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         self.window?.windowScene = windowScene
-        self.window?.rootViewController = self.createUpcomingEventsNC(eventDataProvider: self.eventDataProvider)
+        self.window?.rootViewController = self.createUpcomingEventsNC(eventDataService: self.eventDataService)
         
         self.window?.makeKeyAndVisible()
         
         self.configureNavigationBar()
     }
     
-    func configureEventDataProvider() {
+    func configureEventDataService() {
         let mockFileURL = Bundle.main.url(forResource: "mock", withExtension: "json")!
-        let fileEventDataProvider = FileEventDataService(at: mockFileURL)
-        self.eventDataProvider = EventDataService(eventDataProvider: fileEventDataProvider)
+        let fileEventDataService = FileEventDataService(at: mockFileURL)
+        self.eventDataService = EventDataService(eventDataService: fileEventDataService)
     }
     
-    func createUpcomingEventsNC(eventDataProvider: EventDataService) -> UINavigationController {
-        let upcomingEventsVC = UpcomingEventsVC(eventDataProvider: eventDataProvider)
+    func createUpcomingEventsNC(eventDataService: EventDataService) -> UINavigationController {
+        let upcomingEventsVC = UpcomingEventsVC(eventDataService: eventDataService)
         return UINavigationController(rootViewController: upcomingEventsVC)
     }
     

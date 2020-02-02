@@ -14,7 +14,7 @@
 		5912FE3923E3C0DC00CE8A95 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5912FE3723E3C0DC00CE8A95 /* LaunchScreen.storyboard */; };
 		5912FE4423E3C0DC00CE8A95 /* UpcomingEventsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5912FE4323E3C0DC00CE8A95 /* UpcomingEventsTests.swift */; };
 		5912FE5923E3C35C00CE8A95 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5912FE5823E3C35C00CE8A95 /* Event.swift */; };
-		5912FE5B23E3D7EA00CE8A95 /* EventDataProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5912FE5A23E3D7EA00CE8A95 /* EventDataProviding.swift */; };
+		5912FE5B23E3D7EA00CE8A95 /* EventDataServicing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5912FE5A23E3D7EA00CE8A95 /* EventDataServicing.swift */; };
 		5912FE5D23E3D88C00CE8A95 /* EventDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5912FE5C23E3D88C00CE8A95 /* EventDataService.swift */; };
 		5912FE5F23E3D8EF00CE8A95 /* FileEventDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5912FE5E23E3D8EF00CE8A95 /* FileEventDataService.swift */; };
 		5912FE6123E3DBB700CE8A95 /* mock.json in Resources */ = {isa = PBXBuildFile; fileRef = 5912FE6023E3DBB700CE8A95 /* mock.json */; };
@@ -54,7 +54,7 @@
 		5912FE4323E3C0DC00CE8A95 /* UpcomingEventsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingEventsTests.swift; sourceTree = "<group>"; };
 		5912FE4523E3C0DC00CE8A95 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5912FE5823E3C35C00CE8A95 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
-		5912FE5A23E3D7EA00CE8A95 /* EventDataProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDataProviding.swift; sourceTree = "<group>"; };
+		5912FE5A23E3D7EA00CE8A95 /* EventDataServicing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDataServicing.swift; sourceTree = "<group>"; };
 		5912FE5C23E3D88C00CE8A95 /* EventDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDataService.swift; sourceTree = "<group>"; };
 		5912FE5E23E3D8EF00CE8A95 /* FileEventDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileEventDataService.swift; sourceTree = "<group>"; };
 		5912FE6023E3DBB700CE8A95 /* mock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mock.json; sourceTree = "<group>"; };
@@ -149,7 +149,7 @@
 		5912FE4F23E3C1AF00CE8A95 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				5912FE5A23E3D7EA00CE8A95 /* EventDataProviding.swift */,
+				5912FE5A23E3D7EA00CE8A95 /* EventDataServicing.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -377,7 +377,7 @@
 				59DB6A2623E4A74D00D97C69 /* SecondaryTitleLabel.swift in Sources */,
 				5912FE5F23E3D8EF00CE8A95 /* FileEventDataService.swift in Sources */,
 				5999A09D23E4EF18009B48AA /* EventConflictVC.swift in Sources */,
-				5912FE5B23E3D7EA00CE8A95 /* EventDataProviding.swift in Sources */,
+				5912FE5B23E3D7EA00CE8A95 /* EventDataServicing.swift in Sources */,
 				5912FE5D23E3D88C00CE8A95 /* EventDataService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

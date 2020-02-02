@@ -10,29 +10,29 @@ import Foundation
 
 final class EventDataService {
     
-    private var _fileEventDataProvider: FileEventDataService
-    var fileEventDataProvider: FileEventDataService {
-        get { return _fileEventDataProvider }
+    private var _fileEventDataService: FileEventDataService
+    var fileEventDataService: FileEventDataService {
+        get { return _fileEventDataService }
     }
 
-    init(eventDataProvider: FileEventDataService) {
-        self._fileEventDataProvider = eventDataProvider
+    init(eventDataService: FileEventDataService) {
+        self._fileEventDataService = eventDataService
     }
     
 }
 
-extension EventDataService: EventDataProviding {
+extension EventDataService: EventDataServicing {
     
     func getDistinctEventDates() -> [Date] {
-        return fileEventDataProvider.getDistinctEventDates()
+        return fileEventDataService.getDistinctEventDates()
     }
     
     func getEvents(on date: Date) -> [Event] {
-        return fileEventDataProvider.getEvents(on: date)
+        return fileEventDataService.getEvents(on: date)
     }
     
     func getEventsGroupedByDay() -> [Day] {
-        return fileEventDataProvider.getEventsGroupedByDay()
+        return fileEventDataService.getEventsGroupedByDay()
     }
     
 }

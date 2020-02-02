@@ -12,22 +12,25 @@ class Day {
     
     let date: Date
     let events: [Event]
-    private var eventConflicts: Set<Event>!
+    private var _eventConflicts: Set<Event>!
+    var eventConflicts: Set<Event> {
+        get { return _eventConflicts }
+    }
     
     init(date: Date, events: [Event]) {
         self.date = date
         self.events = events.sorted(by: { ev1, ev2 -> Bool in
             ev1.start < ev2.start
         })
-        self.eventConflicts = checkForConflicts()
+        self._eventConflicts = checkForConflicts(events: self.events)
     }
     
     func isEventInConflict(_ event: Event) -> Bool {
-        return eventConflicts.contains(event)
+        return _eventConflicts.contains(event)
     }
     
-    /// Checks whether the day contains conflicting events. Time complexity is O(nlogn) + O(n) -> O(nlogn) because the list has been previously sorted.
-    func checkForConflicts() -> Set<Event> {
+    /// Checks whether the day contains conflicting events. Time complexity is O(nlogn) + O(n) -> O(nlogn) because the list has been sorted before the traversal.
+    func checkForConflicts(events: [Event]) -> Set<Event> {
         guard events.count > 1, let firstEvent = events.first else { return [] }
         
         var conflicts = Set<Event>()
@@ -52,4 +55,5 @@ class Day {
         
         return conflicts
     }
+    
 }
