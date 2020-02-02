@@ -10,9 +10,8 @@ import UIKit
 
 class UpcomingEventsVC: UIViewController {
     
-    let dailyEventsContainerView = UIView()
-    
-    var dailyEventsVC: DailyEventsVC!
+    private let dailyEventsContainerView = UIView()
+    private var dailyEventsVC: DailyEventsVC!
 
     private var eventDays = [Day]()
     private var presenter: UpcomingEventsPresenter!
@@ -58,7 +57,7 @@ class UpcomingEventsVC: UIViewController {
             dailyEventsContainerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             dailyEventsContainerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             dailyEventsContainerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            dailyEventsContainerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            dailyEventsContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
         dailyEventsVC = DailyEventsVC()

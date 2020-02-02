@@ -13,17 +13,20 @@ class EventConflictVC: UIViewController {
     private let warningImageView = EventImageView(frame: .zero)
     private let titleLabel = TitleLabel(textAlignment: .left, fontSize: 18.0)
     private let timeRangeLabel = SecondaryTitleLabel(fontSize: 15.0)
-    private var tableView: UITableView!
+
+    private let dailyEventsContainerView = UIView()
+    private var dailyEventsVC: DailyEventsVC!
+
     private var localeChangeObserver: NSObjectProtocol!
 
+    private var day: Day!
     private var event: Event!
-    private var conflicts: [Event]
 
     var onDismiss: EmptyCompletion?
     
-    init(event: Event) {
+    init(day: Day, event: Event) {
+        self.day = day
         self.event = event
-        self.conflicts = event.getConflicts() ?? []
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -34,10 +37,20 @@ class EventConflictVC: UIViewController {
     override func viewDidLoad() {
         configureViewController()
         configureHeader()
-        configureTableView()
+        configureLayoutUI()
         super.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = false
+    }
+    
+    func refresh() {
+        self.refreshTimeRangeLabel()
+        self.dailyEventsVC.refresh()
+    }
+
     @objc private func dismissVC() {
         dismiss(animated: true)
         if let onDismiss = onDismiss {
@@ -46,8 +59,9 @@ class EventConflictVC: UIViewController {
     }
     
     private func configureViewController() {
-        view.backgroundColor = .systemBackground
-        self.title = "Event Info"
+        self.title = "Event Conflict"
+        view.backgroundColor = .secondarySystemBackground
+        navigationController?.navigationBar.prefersLargeTitles = false
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissVC))
         navigationItem.rightBarButtonItem = doneButton
         
@@ -55,8 +69,7 @@ class EventConflictVC: UIViewController {
         let center = NotificationCenter.default
         let mainQueue = OperationQueue.main
         self.localeChangeObserver = center.addObserver(forName: NSLocale.currentLocaleDidChangeNotification, object: nil, queue: mainQueue) { _ in
-            self.refreshTimeRangeLabel()
-            self.tableView.reloadData()
+            self.refresh()
         }
     }
     
@@ -89,63 +102,24 @@ class EventConflictVC: UIViewController {
         ])
     }
     
-    private func configureTableView() {
-        tableView = UITableView(frame: view.bounds, style: .insetGrouped)
-        view.addSubview(tableView)
+    private func configureLayoutUI() {
+        view.addSubview(dailyEventsContainerView)
         
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.rowHeight = 80.0
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        tableView.register(EventCell.self, forCellReuseIdentifier: EventCell.reuseID)
-        
-        let padding: CGFloat = 12.0
+        dailyEventsContainerView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo:timeRangeLabel.bottomAnchor, constant: padding),
-            tableView.leftAnchor.constraint(equalTo:view.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo:view.rightAnchor),
-            tableView.bottomAnchor.constraint(equalTo:view.bottomAnchor)
+            dailyEventsContainerView.topAnchor.constraint(equalTo: timeRangeLabel.bottomAnchor, constant: 10.0),
+            dailyEventsContainerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            dailyEventsContainerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            dailyEventsContainerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+        
+        dailyEventsVC = DailyEventsVC(day: day, selectedEvent: event)
+        add(childVC: dailyEventsVC, to: dailyEventsContainerView)
     }
-    
+
     private func refreshTimeRangeLabel() {
         timeRangeLabel.text = "\(event.start.abbreviatedTimeTitle) - \(event.end.abbreviatedTimeTitle)"
     }
 
-}
-
-extension EventConflictVC: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-    
-}
-
-extension EventConflictVC: UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return conflicts.count
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Conflicting Events"
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: EventCell.reuseID, for: indexPath)
-        
-        if let eventCell = cell as? EventCell {
-            eventCell.set(event: conflicts[indexPath.row], isConflict: true, showDisclosureIfConflict: false)
-        }
-        
-        return cell
-    }
-    
 }

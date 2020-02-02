@@ -11,19 +11,28 @@ import Foundation
 class Day {
     
     let date: Date
-    let events: [Event]
+    
+    private var _events: [Event]
+    var events: [Event] {
+        get { _events }
+    }
+    
+    private var _isFiltered: Bool
+    var isFiltered: Bool {
+        get { _isFiltered }
+    }
     
     lazy var eventConflicts: Set<Event> = {
-        return checkForConflicts(events: events)
+        return checkForConflicts(events: _events)
     }()
     
     init(date: Date, events: [Event]) {
         self.date = date
-        self.events = events.sorted(by: { ev1, ev2 -> Bool in
+        self._isFiltered = false
+        self._events = events.sorted(by: { ev1, ev2 -> Bool in
             ev1.start < ev2.start
         })
     }
-    
     
     /// Returns whether the event is in conlict with another one.
     /// - Parameter event: the event to be tested.
@@ -56,6 +65,24 @@ class Day {
         }
         
         return conflicts
+    }
+    
+    func filterLeavingConflicts(event: Event) {
+        var conflicts = checkForConflicts(events: _events)
+        conflicts.remove(event)
+        _events = Array(conflicts).sorted(by: { ev1, ev2 -> Bool in
+            ev1.start < ev2.start
+        })
+        _isFiltered = true
+    }
+    
+}
+
+extension Day: NSCopying {
+    
+    func copy(with zone: NSZone? = nil) -> Any {
+        let copy = Day(date: date, events: events)
+        return copy
     }
     
 }

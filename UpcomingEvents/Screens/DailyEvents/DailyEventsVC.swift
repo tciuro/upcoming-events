@@ -31,6 +31,13 @@ class DailyEventsVC: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
+    init(day: Day, selectedEvent: Event) {
+        let filteredDay = day.copy() as! Day
+        filteredDay.filterLeavingConflicts(event: selectedEvent)
+        self.eventDays = [filteredDay]
+        super.init(nibName: nil, bundle: nil)
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -38,7 +45,7 @@ class DailyEventsVC: UIViewController {
     func refresh() {
         tableView.reloadData()
     }
-    
+
     private func configureViewController() {
         view.backgroundColor = .systemBackground
         self.title = "Upcoming Events"
@@ -55,7 +62,6 @@ class DailyEventsVC: UIViewController {
     
     private func configureTableView() {
         tableView = UITableView(frame: view.bounds, style: .insetGrouped)
-        tableView.frame = view.bounds
         tableView.rowHeight = 80.0
         tableView.delegate = self
         tableView.dataSource = self
@@ -63,6 +69,15 @@ class DailyEventsVC: UIViewController {
         tableView.register(EventCell.self, forCellReuseIdentifier: EventCell.reuseID)
 
         view.addSubview(tableView)
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
     
     private func deselectTableView() {
@@ -85,7 +100,7 @@ extension DailyEventsVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let day = eventDays[indexPath.section]
         let event = day.events[indexPath.row]
-        let destinationVC = EventConflictVC(event: event)
+        let destinationVC = EventConflictVC(day: day, event: event)
         destinationVC.onDismiss = {
             self.deselectTableView()
         }
@@ -122,8 +137,9 @@ extension DailyEventsVC: UITableViewDataSource {
         if let eventCell = cell as? EventCell {
             let day = eventDays[indexPath.section]
             let event = day.events[indexPath.row]
-            let isConflict = day.isEventInConflict(event)
-            eventCell.set(event: event, isConflict: isConflict, showDisclosureIfConflict: true)
+            let isConflict = day.isFiltered ? true : day.isEventInConflict(event)
+            let showDisclosureIfConflict = day.isFiltered ? false : true
+            eventCell.set(event: event, isConflict: isConflict, showDisclosureIfConflict: showDisclosureIfConflict)
         }
         
         return cell
