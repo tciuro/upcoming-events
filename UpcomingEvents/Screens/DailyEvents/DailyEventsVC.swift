@@ -57,7 +57,6 @@ class DailyEventsVC: UIViewController {
         self.localeChangeObserver = center.addObserver(forName: NSLocale.currentLocaleDidChangeNotification, object: nil, queue: mainQueue) { _ in
             self.tableView.reloadData()
         }
-
     }
     
     private func configureTableView() {
@@ -101,10 +100,13 @@ extension DailyEventsVC: UITableViewDelegate {
         let day = eventDays[indexPath.section]
         let event = day.events[indexPath.row]
         let destinationVC = EventConflictVC(day: day, event: event)
-        destinationVC.onDismiss = {
-            self.deselectTableView()
-        }
+        destinationVC.onDismiss = { self.deselectTableView() }
+        
         let navController = UINavigationController(rootViewController: destinationVC)
+        
+        // This way we can detect if the sheet was dismissed via swiping
+        navController.presentationController?.delegate = self
+
         present(navController, animated: true)
     }
     
@@ -151,6 +153,14 @@ extension DailyEventsVC: UpcomingEventsUIHandling {
     
     func setEventDays(_ days: [Day]) {
         self.eventDays = days
+    }
+    
+}
+
+extension DailyEventsVC: UIAdaptivePresentationControllerDelegate {
+    
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        self.deselectTableView()
     }
     
 }

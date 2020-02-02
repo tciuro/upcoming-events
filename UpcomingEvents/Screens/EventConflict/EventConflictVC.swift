@@ -111,7 +111,7 @@ class EventConflictVC: UIViewController {
             dailyEventsContainerView.topAnchor.constraint(equalTo: timeRangeLabel.bottomAnchor, constant: 10.0),
             dailyEventsContainerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             dailyEventsContainerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            dailyEventsContainerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            dailyEventsContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
         dailyEventsVC = DailyEventsVC(day: day, selectedEvent: event)
