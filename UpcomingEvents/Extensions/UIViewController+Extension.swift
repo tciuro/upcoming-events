@@ -11,7 +11,6 @@ import SafariServices
 
 extension UIViewController {
     
-    
     /// Displays a loading view with an animated activity indicator.
     func showLoadingView() -> UIView {
         let containerView = UIView(frame: view.bounds)
@@ -45,6 +44,17 @@ extension UIViewController {
         DispatchQueue.main.async {
             view.removeFromSuperview()
         }
+    }
+    
+    /// Adds a child view controller to a container view and performs all required relations between them.
+    /// - Parameters:
+    ///   - childVC: the child view controller.
+    ///   - containerView: the container view to host the child view controller.
+    func add(childVC: UIViewController, to containerView: UIView) {
+        addChild(childVC)
+        containerView.addSubview(childVC.view)
+        childVC.view.frame = containerView.bounds
+        childVC.didMove(toParent: self)
     }
     
 }
