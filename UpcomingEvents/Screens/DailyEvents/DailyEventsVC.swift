@@ -111,10 +111,7 @@ extension DailyEventsVC: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        let day = eventDays[indexPath.section]
-        let event = day.events[indexPath.row]
-        guard event.getConflicts() != nil else { return false }
-        return true
+        return tableView.cellForRow(at: indexPath)?.accessoryType == .disclosureIndicator
     }
 
 }
