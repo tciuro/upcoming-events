@@ -67,6 +67,8 @@ class Day {
         return conflicts
     }
     
+    /// Filters out the event from the event conflicts list.
+    /// - Parameter event: the event to be filtered out.
     func filterConflictsRemoving(event: Event) {
         var conflicts = checkForConflicts(events: _events)
         conflicts.remove(event)
