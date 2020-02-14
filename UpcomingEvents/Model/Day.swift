@@ -67,14 +67,19 @@ class Day {
         return conflicts
     }
     
-    /// Filters out the event from the event conflicts list.
-    /// - Parameter event: the event to be filtered out.
-    func filterConflictsRemoving(event: Event) {
-        var conflicts = checkForConflicts(events: _events)
-        conflicts.remove(event)
-        _events = Array(conflicts).sorted(by: { ev1, ev2 -> Bool in
-            ev1.start < ev2.start
-        })
+    /// Sets the event list to contain the events that conflict with the main event.
+    /// - Parameter event: the main event to be filtered out and used to calculate conflicts with the other daily events.
+    func eventsConflicting(with mainEvent: Event) {
+        let filteredEvents = _events.filter { event -> Bool in
+            event != mainEvent
+        }
+        
+        _events = filteredEvents.filter { event -> Bool in
+            let mainDateInterval = NSDateInterval(start: mainEvent.start, end: mainEvent.end)
+            let eventDateInterval = NSDateInterval(start: event.start, end: event.end)
+            return mainDateInterval.intersects(eventDateInterval as DateInterval)
+        }
+        
         _isFiltered = true
     }
     
