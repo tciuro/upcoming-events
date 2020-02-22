@@ -1,6 +1,6 @@
 # Upcoming Events
 
-
+![Swift](https://github.com/tciuro/upcoming-events/workflows/Swift/badge.svg?branch=master)
 
 ### Main Features
 
