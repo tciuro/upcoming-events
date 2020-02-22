@@ -61,9 +61,9 @@
 		5912FE6023E3DBB700CE8A95 /* mock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mock.json; sourceTree = "<group>"; };
 		5912FE6223E3E83600CE8A95 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		592B253823E52FA800F35F7C /* UIViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
-		593F17B22400B78100C2F48D /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		593F17B32400B78100C2F48D /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = "<group>"; };
-		593F17B42400B78100C2F48D /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		593F17B82400B8C200C2F48D /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
+		593F17B92400B8C200C2F48D /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = SOURCE_ROOT; };
+		593F17BA2400B8C200C2F48D /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = SOURCE_ROOT; };
 		5971509B23E4D4850014F640 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		59908F3D23E761C100725C80 /* DailyEventsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyEventsVC.swift; sourceTree = "<group>"; };
 		5999A09C23E4EF18009B48AA /* EventConflictVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventConflictVC.swift; sourceTree = "<group>"; };
@@ -218,9 +218,9 @@
 		593F17B12400B60D00C2F48D /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				593F17B22400B78100C2F48D /* LICENSE */,
-				593F17B42400B78100C2F48D /* Package.swift */,
-				593F17B32400B78100C2F48D /* ReadMe.md */,
+				593F17B82400B8C200C2F48D /* LICENSE */,
+				593F17B92400B8C200C2F48D /* Package.swift */,
+				593F17BA2400B8C200C2F48D /* ReadMe.md */,
 			);
 			path = Packages;
 			sourceTree = "<group>";
