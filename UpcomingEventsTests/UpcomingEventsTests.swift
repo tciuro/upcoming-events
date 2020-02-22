@@ -154,10 +154,12 @@ class UpcomingEventsTests: XCTestCase {
         let ev3 = Event(title: "Day 1",
                         start: _date(year: 2020, month: 5, day: 23, hour: 8, minute: 0, second: 0)!,
                         end: _date(year: 2020, month: 5, day: 23, hour: 13, minute: 0, second: 0)!)
+        
         let day = Day(date: _date(year: 2020, month: 5, day: 23)!, events: [ev1, ev2, ev3])
 
-        day.filterConflictsRemoving(event: ev3)
-        XCTAssertEqual(day.eventConflicts.count, 2)
+        let conflicts = day.eventsConflicting(with: ev3)
+        XCTAssertEqual(conflicts.count, 1)
+        XCTAssertEqual(conflicts.first!, ev2)
         XCTAssertTrue(day.isFiltered)
     }
     
